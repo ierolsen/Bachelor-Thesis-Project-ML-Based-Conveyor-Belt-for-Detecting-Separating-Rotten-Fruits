@@ -1,0 +1,9 @@
+opencv-python
+tensorflow-gpu
+jupyter
+notebook
+matplotlib
+scikit-learn
+tkintertable
+pyFirmata
+pyserial
