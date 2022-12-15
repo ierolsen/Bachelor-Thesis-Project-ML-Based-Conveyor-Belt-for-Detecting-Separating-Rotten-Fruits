@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 
 dataset
+*.json
+resource_rc.py
 
 # C extensions
 *.so
