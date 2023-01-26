@@ -3,7 +3,8 @@ tensorflow-gpu
 jupyter
 notebook
 matplotlib
+numpy
+pandas
 scikit-learn
 tkintertable
-pyFirmata
-pyserial
+Pyrebase
