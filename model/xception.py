@@ -97,3 +97,14 @@ class XceptionModel(object):
 
         self.hist = hist
 
+    def predict(self, img):
+        
+        datagen = ImageDataGenerator(rescale=1./255,
+                                     shear_range=0.2,
+                                     zoom_range=0.2,
+                                     horizontal_flip=True,
+                                     rotation_range=45)
+        
+        img = self.datagen.flow(img)
+        prediction = self.model.predict(img[None, :, :, :])[0]
+        return prediction
