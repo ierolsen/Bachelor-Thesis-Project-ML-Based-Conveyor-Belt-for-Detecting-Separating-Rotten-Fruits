@@ -13,16 +13,20 @@ step = 21      # Step -> GPIO Pin
 # Declare an named instance of class pass GPIO pins numbers
 motor1 = RpiMotorLib.A4988Nema(direction, step, GPIO_pins, "A4988")
 
-motor1.motor_go(clockwise=mpr.cw_clockwise,
-                steptype=mpr.cw_steptype,
-                steps=mpr.cw_steps,
-                stepdelay=mpr.cw_stepdelay,
-                verbose=mpr.cw_verbose,
-                initdelay=mpr.cw_initdelay)
+if __name__ == "__main__":
 
-motor1.motor_go(clockwise=mpr.ccw_clockwise,
-                steptype=mpr.ccw_steptype,
-                steps=mpr.ccw_steps,
-                stepdelay=mpr.ccw_stepdelay,
-                verbose=mpr.ccw_verbose,
-                initdelay=mpr.ccw_initdelay)
+    if mcr.opening == True and mcr.closing==False:
+        
+        motor1.motor_go(clockwise=mpr.cw_clockwise,
+                        steptype=mpr.cw_steptype,
+                        steps=mpr.cw_steps,
+                        stepdelay=mpr.cw_stepdelay,
+                        verbose=mpr.cw_verbose,
+                        initdelay=mpr.cw_initdelay)
+        
+        motor1.motor_go(clockwise=mpr.ccw_clockwise,
+                        steptype=mpr.ccw_steptype,
+                        steps=mpr.ccw_steps,
+                        stepdelay=mpr.ccw_stepdelay,
+                        verbose=mpr.ccw_verbose,
+                        initdelay=mpr.ccw_initdelay)
