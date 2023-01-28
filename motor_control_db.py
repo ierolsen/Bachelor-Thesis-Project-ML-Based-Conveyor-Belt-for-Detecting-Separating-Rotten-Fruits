@@ -18,7 +18,7 @@ data = {
 db.set(data)
 
 #FOR UPDATING THE DATA
-#db.update(data)
+db.update(data)
 
 #FOR DELETING A VALUE
 # e.g. : db.child("CONTROL").child("DETECTED").remove()
