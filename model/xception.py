@@ -104,7 +104,7 @@ class XceptionModel(object):
                                         epochs=self.config.get("epochs"),
                                         validation_data=valid_datagen,
                                         validation_steps=valid_datagen.n // batch,
-                                        verbose=0, 
+                                        verbose=1, 
                                         callbacks=[checkpoint])
 
         self.hist = hist
