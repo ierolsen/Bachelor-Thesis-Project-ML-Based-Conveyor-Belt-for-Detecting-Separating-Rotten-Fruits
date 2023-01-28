@@ -6,7 +6,7 @@ from keras.applications.xception import preprocess_input
 from keras.models import Model
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
-from keras.callbacks import ModelCheckpoint, EarlyStopping
+from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
 from pathlib import Path
 import numpy as np
@@ -27,13 +27,13 @@ class XceptionModel(object):
         model.add(Dropout(0.4))
         model.add(Dense(512))
         model.add(Dropout(0.4))
-        model.add(Dense(256))
-        model.add(Dropout(0.4))
         model.add(Dense(128))
+        model.add(Dropout(0.4))
+        model.add(Dense(64))
         model.add(Activation('relu'))
         model.add(Dropout(0.4))
         model.add(Dense(self.config.get("number_of_class"), activation='softmax'))
-        model.layers[0].trainable = False
+        model.layers[0].trainable=False
        
         model.compile(optimizer=Adam(lr=self.config.get("lr")), 
                       loss='sparse_categorical_crossentropy', 
@@ -45,18 +45,18 @@ class XceptionModel(object):
     def train_model(self):
         Path(self.config.get("save_path")).parent.mkdir(parents=True, exist_ok=True)
         
-        """
+        
         reduce_lr = ReduceLROnPlateau(monitor='val_loss',
                                       factor=0.1,
                                       patience=2,
                                       min_lr=1e-14,
-                                      verbose=0)
+                                      verbose=1)
         
         early_stop = EarlyStopping(monitor='val_loss', 
                                    patience=self.config.get("stopping_patience"), 
                                    verbose=1,
                                    restore_best_weights=True)
-        """
+        
         checkpoint = ModelCheckpoint(filepath=self.config.get("save_path"), 
                                      monitor='val_loss', mode='min', 
                                      save_weights_only=True, 
@@ -75,15 +75,15 @@ class XceptionModel(object):
                                      validation_split=0.3)
         
         train_datagen = datagen.flow_from_directory(directory=self.config.get("train_path"),
-                                                    target_size = (size,size),
+                                                    target_size=(size,size),
                                                     color_mode='rgb',
                                                     batch_size=batch,
-                                                    class_mode = 'sparse',
+                                                    class_mode='sparse',
                                                     shuffle=True,
                                                     subset='training')
 
         valid_datagen = datagen.flow_from_directory(directory=self.config.get("train_path"),
-                                                    target_size = (size,size),
+                                                    target_size=(size,size),
                                                     color_mode='rgb',
                                                     batch_size=batch,
                                                     class_mode='sparse',
@@ -91,10 +91,10 @@ class XceptionModel(object):
                                                     subset='validation')
         
         test_datagen = ImageDataGenerator(preprocessing_function=preprocess_input,
-                                        rescale=1./255.)
+                                          rescale=1./255.)
 
         test_datagen = test_datagen.flow_from_directory(directory=self.config.get("test_path"),
-                                                        target_size = (size,size),
+                                                        target_size=(size,size),
                                                         color_mode='rgb',
                                                         batch_size=batch,
                                                         class_mode='sparse')
@@ -105,7 +105,7 @@ class XceptionModel(object):
                                         validation_data=valid_datagen,
                                         validation_steps=valid_datagen.n // batch,
                                         verbose=1, 
-                                        callbacks=[checkpoint])
+                                        callbacks=[checkpoint, early_stop, reduce_lr])
 
         self.hist = hist
         
