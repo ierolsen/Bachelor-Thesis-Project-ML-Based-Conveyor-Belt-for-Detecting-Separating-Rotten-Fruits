@@ -1,9 +1,6 @@
 import argparse
 import sys
 from pathlib import Path
-import json
-import pandas as pd
-import os
 
 from model.xception import XceptionModel
 
@@ -15,7 +12,6 @@ if __name__ == '__main__':
     
     parser.add_argument("--size", type=int, help="size of image")
     parser.add_argument("--num-class", type=int, help="number of class")
-    parser.add_argument("--label-smoothing", type=float, help="label smoothing for loss")
     parser.add_argument("--lr", type=float, help="learning rate")
     parser.add_argument("--save-path", type=str, help="save path for the model")
     parser.add_argument("--batch", type=int, help="batch size")
@@ -29,7 +25,6 @@ if __name__ == '__main__':
 config = {
     "size": args.size,
     "number_of_class": args.num_class,
-    "label_smoothing": args.label_smoothing,
     "lr": args.lr,
     "save_path": args.save_path,
     "batch": args.batch,
@@ -38,6 +33,7 @@ config = {
     "test_path": args.test_path,
     "epochs": args.epochs
 }
+
 
 model = XceptionModel(config)
 model.create_model()
