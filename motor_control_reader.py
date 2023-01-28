@@ -15,8 +15,5 @@ db = firebase.database()
 detected = db.child("motor-control").child("CONTROL").child("detected").get().val()
 num_rotten = db.child("motor-control").child("CONTROL").child("num_rotten").get().val()
 num_fresh = db.child("motor-control").child("CONTROL").child("num_fresh").get().val()
-open = db.child("motor-control").child("CONTROL").child("open").get().val()
-close = db.child("motor-control").child("CONTROL").child("close").get().val()
-
-#FOR UPDATING THE DATA
-#db.update(data)
+opening = db.child("motor-control").child("CONTROL").child("open").get().val()
+closing = db.child("motor-control").child("CONTROL").child("close").get().val()
