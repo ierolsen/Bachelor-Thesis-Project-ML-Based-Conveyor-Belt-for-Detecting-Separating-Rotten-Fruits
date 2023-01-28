@@ -36,7 +36,7 @@ class XceptionModel(object):
         model.layers[0].trainable = False
        
         model.compile(optimizer=Adam(lr=self.config.get("lr")), 
-                      loss='categorical_crossentropy', 
+                      loss='sparse_categorical_crossentropy', 
                       metrics=['accuracy'])
         
         self.model = model
@@ -104,8 +104,9 @@ class XceptionModel(object):
                                         epochs=self.config.get("epochs"),
                                         validation_data=valid_datagen,
                                         validation_steps=valid_datagen.n // batch,
-                                        verbose=0, callbacks=[checkpoint])
+                                        verbose=0, 
+                                        callbacks=[checkpoint])
 
         self.hist = hist
         
-        print("the end..")
+        print("DONE")
