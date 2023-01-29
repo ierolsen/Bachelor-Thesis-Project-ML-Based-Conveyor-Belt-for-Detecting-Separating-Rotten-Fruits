@@ -28,11 +28,11 @@ class XceptionModel(object):
         model.add(Dropout(0.4))
         model.add(Dense(64))
         model.add(Dropout(0.4))
-        model.add(Dense(self.config.get("number_of_class"), activation='softmax'))
+        model.add(Dense(self.config.get("number_of_class"), activation=self.config.get("activation")))
         model.layers[0].trainable=False
 
         model.compile(optimizer=Adam(lr=self.config.get("lr")), 
-                      loss='sparse_categorical_crossentropy', 
+                      loss=self.config.get("loss"), 
                       metrics=['accuracy'])
 
         self.model = model
