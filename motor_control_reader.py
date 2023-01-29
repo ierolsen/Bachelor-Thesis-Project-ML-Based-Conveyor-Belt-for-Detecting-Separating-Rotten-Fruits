@@ -15,3 +15,4 @@ detected = db.child("motor-control").child("CONTROL").child("detected").get().va
 num_rotten = db.child("motor-control").child("CONTROL").child("num_rotten").get().val()
 num_fresh = db.child("motor-control").child("CONTROL").child("num_fresh").get().val()
 opening = db.child("motor-control").child("CONTROL").child("open").get().val()
+closing = db.child("motor-control").child("CONTROL").child("close").get().val()
