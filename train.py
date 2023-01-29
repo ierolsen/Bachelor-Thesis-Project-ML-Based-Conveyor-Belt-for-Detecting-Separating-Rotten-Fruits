@@ -12,6 +12,8 @@ if __name__ == '__main__':
     
     parser.add_argument("--size", type=int, help="size of image")
     parser.add_argument("--num-class", type=int, help="number of class")
+    parser.add_argument("--activation", type=str, help="activation function")
+    parser.add_argument("--loss", type=str, help="loss function")
     parser.add_argument("--lr", type=float, help="learning rate")
     parser.add_argument("--save-path", type=str, help="save path for the model")
     parser.add_argument("--batch", type=int, help="batch size")
@@ -25,6 +27,8 @@ if __name__ == '__main__':
 config = {
     "size": args.size,
     "number_of_class": args.num_class,
+    "activation": args.activation,
+    "loss": args.loss,
     "lr": args.lr,
     "save_path": args.save_path,
     "batch": args.batch,
