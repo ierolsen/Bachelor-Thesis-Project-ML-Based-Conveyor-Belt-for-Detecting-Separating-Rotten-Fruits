@@ -11,6 +11,7 @@ data = {
         "num_rotten": 0,
         "num_fresh": 0,
         "open": False,
+        "close": True,
     }
 }
 
