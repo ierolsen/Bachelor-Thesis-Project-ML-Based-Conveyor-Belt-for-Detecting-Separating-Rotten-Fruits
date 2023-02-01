@@ -1,13 +1,10 @@
-from keras.models import Sequential
-from keras.layers import Dense, Flatten, GlobalAveragePooling2D, Activation, Flatten, Dropout, BatchNormalization
+import keras
+from keras.layers import Dense, GlobalAveragePooling2D
 from keras.applications.xception import Xception
-from keras.applications.xception import preprocess_input
 from keras.models import Model
-from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 from pathlib import Path
-import numpy as np
 
 
 class XceptionModel(object):
@@ -19,21 +16,17 @@ class XceptionModel(object):
 
     def create_model(self):
         size = self.config.get("size")
- 
-        model = Sequential()
-        model.add(Xception(include_top=False, pooling='avg', weights="imagenet", input_shape=(size, size, 3)))
-        model.add(Dense(512))
-        model.add(Dropout(0.4))
-        model.add(Dense(128))
-        model.add(Dropout(0.4))
-        model.add(Dense(64))
-        model.add(Dropout(0.4))
-        model.add(Dense(self.config.get("number_of_class"), activation=self.config.get("activation")))
-        model.layers[0].trainable=False
+        
+        base_model = Xception(include_top=False, weights="imagenet", input_shape=(size, size, 3))
 
-        model.compile(optimizer=Adam(lr=self.config.get("lr")), 
+        x = GlobalAveragePooling2D()(base_model.output)
+        predictions = Dense(self.config.get("number_of_class"), activation=self.config.get("activation"))(x)
+
+        model = Model(inputs=base_model.input, outputs=[predictions])
+        
+        model.compile(optimizer=keras.optimizers.Adam(),
                       loss=self.config.get("loss"), 
-                      metrics=['accuracy'])
+                      metrics=[keras.metrics.BinaryAccuracy()])
 
         self.model = model
 
@@ -42,7 +35,7 @@ class XceptionModel(object):
 
         reduce_lr = ReduceLROnPlateau(monitor='val_loss',
                                       factor=0.1,
-                                      patience=2,
+                                      patience=3,
                                       min_lr=1e-14,
                                       verbose=1)
 
@@ -61,19 +54,20 @@ class XceptionModel(object):
         batch = self.config.get("batch")
         size = self.config.get("size")
 
-        datagen = ImageDataGenerator(preprocessing_function=preprocess_input,
-                                     rescale=1./255.,
-                                     shear_range=0.2,
-                                     zoom_range=0.2, 
+        datagen = ImageDataGenerator(samplewise_center=True,
+                                     rotation_range=10,
+                                     zoom_range=0.1,
+                                     width_shift_range=0.1,
+                                     height_shift_range=0.1,
                                      horizontal_flip=True,
-                                     rotation_range=45,
+                                     vertical_flip=True,
                                      validation_split=0.3)
         
         train_datagen = datagen.flow_from_directory(directory=self.config.get("train_path"),
                                                     target_size=(size,size),
                                                     color_mode='rgb',
                                                     batch_size=batch,
-                                                    class_mode='sparse',
+                                                    class_mode="binary",
                                                     shuffle=True,
                                                     subset='training')
 
@@ -81,18 +75,17 @@ class XceptionModel(object):
                                                     target_size=(size,size),
                                                     color_mode='rgb',
                                                     batch_size=batch,
-                                                    class_mode='sparse',
+                                                    class_mode="binary",
                                                     shuffle=True,
                                                     subset='validation')
 
-        test_datagen = ImageDataGenerator(preprocessing_function=preprocess_input,
-                                          rescale=1./255.)
+        test_datagen = ImageDataGenerator(rescale=1./255.)
 
         test_datagen = test_datagen.flow_from_directory(directory=self.config.get("test_path"),
                                                         target_size=(size,size),
                                                         color_mode='rgb',
                                                         batch_size=batch,
-                                                        class_mode='sparse')
+                                                        class_mode='binary')
 
         hist = self.model.fit_generator(generator=train_datagen,
                                         steps_per_epoch=train_datagen.n // batch,
@@ -100,6 +93,6 @@ class XceptionModel(object):
                                         validation_data=valid_datagen,
                                         validation_steps=valid_datagen.n // batch,
                                         verbose=1, 
-                                        callbacks=[checkpoint, early_stop, reduce_lr])
+                                        callbacks=[checkpoint, early_stop])
 
         self.hist = hist
