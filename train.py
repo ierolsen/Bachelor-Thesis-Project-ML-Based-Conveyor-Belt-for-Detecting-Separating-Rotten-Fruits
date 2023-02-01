@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 from model.xception import XceptionModel
+from model.vgg16 import VGG16
 
 sys.path.append(str(Path.cwd()))
 
@@ -14,7 +15,7 @@ if __name__ == '__main__':
     parser.add_argument("--num-class", type=int, help="number of class")
     parser.add_argument("--activation", type=str, help="activation function")
     parser.add_argument("--loss", type=str, help="loss function")
-    parser.add_argument("--lr", type=float, help="learning rate")
+    #parser.add_argument("--lr", type=float, help="learning rate")
     parser.add_argument("--save-path", type=str, help="save path for the model")
     parser.add_argument("--batch", type=int, help="batch size")
     parser.add_argument("--stopping-patience", type=int, help="early stopping patience")
@@ -29,7 +30,7 @@ config = {
     "number_of_class": args.num_class,
     "activation": args.activation,
     "loss": args.loss,
-    "lr": args.lr,
+    #"lr": args.lr,
     "save_path": args.save_path,
     "batch": args.batch,
     "stopping_patience": args.stopping_patience,
@@ -43,3 +44,11 @@ model = XceptionModel(config)
 model.create_model()
 model.train_model()
 hist = model.hist
+
+"""
+# VGG16
+model = VGG16(config)
+model.create_model()
+model.train_model()
+hist = model.hist
+"""
