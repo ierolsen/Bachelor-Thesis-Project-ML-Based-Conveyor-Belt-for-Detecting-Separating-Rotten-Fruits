@@ -8,6 +8,7 @@ dataset
 resource_rc.py
 firebase_secrets.py
 *.hdf5
+*.h5
 
 
 # C extensions
