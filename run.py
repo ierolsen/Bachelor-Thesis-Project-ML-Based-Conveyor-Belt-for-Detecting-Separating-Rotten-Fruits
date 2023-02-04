@@ -35,6 +35,14 @@ while True:
         
         if ret == False:
                 break
+        
+        """
+        TODO:
+        Prediction function will come here. 
+        -> The frame will be predicted by the trained model.
+        -> According to the result, FireBase variables will change
+        -> DC-Motor will run by the value of the variables on FireBase
+        """
                         
         cv2.imshow("Video Capture", frame)
 
