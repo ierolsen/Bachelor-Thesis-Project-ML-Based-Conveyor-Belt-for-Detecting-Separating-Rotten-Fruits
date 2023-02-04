@@ -1,7 +1,11 @@
 import argparse
 import sys
 from pathlib import Path
+import pandas as pd
+import numpy as np
 
+import keras
+import tensorflow as tf
 from model.xception import XceptionModel
 from model.vgg16 import VGG16
 
@@ -34,7 +38,7 @@ config = {
     "stopping_patience": args.stopping_patience,
     "train_path": args.train_path,
     "test_path": args.test_path,
-    "epochs": args.epochs
+    "epochs": args.epochs,
 }
 
 
