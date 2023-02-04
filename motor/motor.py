@@ -57,6 +57,6 @@ class Motor():
         Args:
             t (int, optional): time. Defaults to 0.
         """
-        self.pwm.ChangeDutyCycle(0) # 0%
+        self.pwm.ChangeDutyCycle(0)
         sleep(t)
 
