@@ -26,7 +26,7 @@ print(result)
 #model = load_model(filepath="model/model.h5")
 #model.summary()
 
-
+"""
 cap = cv2.VideoCapture(0)
 
 while True:
@@ -51,3 +51,4 @@ while True:
         
 cap.release()
 cv2.destroyAllWindows()
+"""
