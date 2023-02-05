@@ -24,6 +24,8 @@ if __name__ == '__main__':
     parser.add_argument("--stopping-patience", type=int, help="early stopping patience")
     parser.add_argument("--train-path", type=str, help="traning path")
     parser.add_argument("--test-path", type=str, help="test path")
+    parser.add_argument("--save-model", type=str, help="saving path of model")
+    parser.add_argument("--save-weights", type=str, help="saving path of weights")
     parser.add_argument("--epochs", type=int, help="epochs")
     args = parser.parse_args()    
     
@@ -38,6 +40,8 @@ config = {
     "stopping_patience": args.stopping_patience,
     "train_path": args.train_path,
     "test_path": args.test_path,
+    "save_model": args.save_model,
+    "save_weights": args.save_weights,
     "epochs": args.epochs,
 }
 
@@ -46,6 +50,7 @@ model = XceptionModel(config)
 model.create_model()
 model.train_model()
 hist = model.hist
+model.save_model()
 
 """
 # VGG16
