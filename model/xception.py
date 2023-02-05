@@ -1,7 +1,7 @@
 import keras
 from keras.layers import Dense, GlobalAveragePooling2D
 from keras.applications.xception import Xception
-from keras.models import Model
+from keras.models import Model, save_model
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 from pathlib import Path
@@ -16,14 +16,14 @@ class XceptionModel(object):
 
     def create_model(self):
         size = self.config.get("size")
-        
+
         base_model = Xception(include_top=False, weights="imagenet", input_shape=(size, size, 3))
 
         x = GlobalAveragePooling2D()(base_model.output)
         predictions = Dense(self.config.get("number_of_class"), activation=self.config.get("activation"))(x)
 
         model = Model(inputs=base_model.input, outputs=[predictions])
-        
+
         model.compile(optimizer=keras.optimizers.Adam(),
                       loss=self.config.get("loss"), 
                       metrics=[keras.metrics.BinaryAccuracy()])
@@ -62,7 +62,7 @@ class XceptionModel(object):
                                      horizontal_flip=True,
                                      vertical_flip=True,
                                      validation_split=0.3)
-        
+
         train_datagen = datagen.flow_from_directory(directory=self.config.get("train_path"),
                                                     target_size=(size,size),
                                                     color_mode='rgb',
@@ -96,3 +96,10 @@ class XceptionModel(object):
                                         callbacks=[checkpoint, early_stop])
 
         self.hist = hist
+
+    def save_model(self):
+        self.model.save(self.config.get("save_model"))
+        print("saved model in h5 format")
+
+        self.model.save_weights(self.config.get("save_weights"))
+        print("saved weights in h5 formats")
