@@ -99,7 +99,7 @@ class XceptionModel(object):
 
     def save_model(self):
         self.model.save(self.config.get("save_model"))
-        print("saved model in h5 format")
+        print(f"model saved there: {self.config.get('save_model')}")
 
         self.model.save_weights(self.config.get("save_weights"))
-        print("saved weights in h5 formats")
+        print(f"weights saved there: {self.config.get('save_weights')}")
