@@ -1,8 +1,6 @@
 import argparse
 import sys
 from pathlib import Path
-import pandas as pd
-import numpy as np
 
 import keras
 import tensorflow as tf
