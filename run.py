@@ -1,4 +1,5 @@
 import cv2
+import time
 from PIL import Image
 import numpy as np
 
@@ -15,10 +16,23 @@ db = firebase.database()
 model = tf.keras.models.load_model("model/model_080223")
 print("model loaded")
 
-# TODO:
-# Define a function here which updates the values on FiraBase. 
-# It will take place inside the loop.
-# According to the values on DB, DC-Motor will run.
+
+def update_db(db):
+    """
+    FireBase DataBase updater.
+    It will run when a rotten fruit is detected
+    Args:
+        db: FireBase DataBase
+    """
+    data = {"open": True,
+            "close": False}
+    result = db.child("motor-control").child("CONTROL").update(data)
+    print("opening...")
+    time.sleep(3)
+    data = {"open": False,
+            "close": True}
+    result = db.child("motor-control").child("CONTROL").update(data)
+    print("closing...")
 
 
 cap = cv2.VideoCapture(0)
@@ -34,7 +48,7 @@ while True:
         frame_array = frame_array.resize((224,224))
         frame_array = np.array(frame_array)
 
-        # 4-dimensional tensor
+        # 4-Dimensional Tensor
         frame_array = np.expand_dims(frame_array, axis=0)
 
         # Predict the class of the fruit
