@@ -16,23 +16,21 @@ db = firebase.database()
 model = tf.keras.models.load_model("model/model_080223")
 print("model loaded")
 
-
 def update_db(db):
     """
-    FireBase DataBase updater.
-    It will run when a rotten fruit is detected
+    FireBase DataBase updater. It will run when a rotten fruit is detected. 
+    It will cause DC-Motor run.
     Args:
         db: FireBase DataBase
     """
     data = {"open": True,
             "close": False}
-    result = db.child("motor-control").child("CONTROL").update(data)
-    print("opening...")
-    time.sleep(3)
+    db.child("motor-control").child("CONTROL").update(data)    
+    time.sleep(3)    
     data = {"open": False,
             "close": True}
-    result = db.child("motor-control").child("CONTROL").update(data)
-    print("closing...")
+    db.child("motor-control").child("CONTROL").update(data)
+    print("FireBase updated!")
 
 
 cap = cv2.VideoCapture(0)
@@ -56,25 +54,16 @@ while True:
     
         # Check if the prediction is 0 or 1
         if np.round(pred) == 1:
-            cv2.putText(frame, "Rotten", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            cv2.putText(frame, "Rotten", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
+            update_db(db)
+            
+            # TODO: Add Counter for rotten fruits.
+            # TODO: Update the values of counted fruits on FireBase
         else:
-            cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+            # TODO: Add Counter for fresh fruits
+            # TODO: Update the values of counted fruits on FireBase
      
-        """
-        TODO:
-        Update the values on DB.  
-        NOTE Here is the code:
-            data = {"open": True,
-                    "close": False}
-            result = db.child("motor-control").child("CONTROL").update(data)
-            print(result)
-
-            data = {"open": False,
-                    "close": True}
-            result = db.child("motor-control").child("CONTROL").update(data)
-            print(result)
-        """
-        
         cv2.imshow("Fresh & Rotten Fruit Detection", frame)
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
