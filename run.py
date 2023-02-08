@@ -28,17 +28,17 @@ while True:
         ret, frame = cap.read() 
         
         # Converting into RGB
-        im = Image.fromarray(frame, 'RGB')
+        frame_array = Image.fromarray(frame, 'RGB')
 
         # Resizing
-        im = im.resize((224,224))
-        img_array = np.array(im)
+        frame_array = frame_array.resize((224,224))
+        frame_array = np.array(frame_array)
 
         # 4-dimensional tensor
-        img_array = np.expand_dims(img_array, axis=0)
+        frame_array = np.expand_dims(frame_array, axis=0)
 
         # Predict the class of the fruit
-        pred = model.predict(img_array)
+        pred = model.predict(frame_array)
     
         # Check if the prediction is 0 or 1
         if np.round(pred) == 1:
