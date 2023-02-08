@@ -9,6 +9,7 @@ resource_rc.py
 firebase_secrets.py
 *.hdf5
 *.h5
+model_080223
 
 
 # C extensions
