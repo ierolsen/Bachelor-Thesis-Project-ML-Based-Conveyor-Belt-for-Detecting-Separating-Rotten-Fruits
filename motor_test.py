@@ -1,5 +1,5 @@
 from pyrebase import pyrebase
-from firebase_secrets import SECRETS
+from motor.firebase_secrets import SECRETS
 import time
 
 firebase = pyrebase.initialize_app(SECRETS["FIREBASE"])
