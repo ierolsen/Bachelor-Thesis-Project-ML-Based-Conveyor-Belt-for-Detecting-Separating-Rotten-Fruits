@@ -43,18 +43,16 @@ while True:
             cv2.putText(frame, "Rotten", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
             # FireBase Updater function to run the motor
             run_motor(db)
+            # ! Motor can't get variable fast on FireBase. Fix it!
             
             # TODO: Add Counter for rotten fruits.
             # TODO: Update the values of counted fruits on FireBase
         else:
-            cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+            #cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
             
             # FireBase Updater function to stop the motor
             stop_motor(db)
-             
-            # TODO: Add Counter for fresh fruits
-            # TODO: Update the values of counted fruits on FireBase
-     
+                  
         cv2.imshow("Fresh & Rotten Fruit Detection", frame)
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
