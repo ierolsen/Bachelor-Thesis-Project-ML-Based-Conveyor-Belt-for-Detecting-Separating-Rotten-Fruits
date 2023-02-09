@@ -1,3 +1,5 @@
+import cv2
+
 from pyrebase import pyrebase
 from motor.firebase_secrets import SECRETS
 
@@ -29,3 +31,28 @@ def stop_motor(db):
 
 def count_rottens(db):
     pass
+
+def getMouseCoordinates(event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        # Print the x,y coordinates of the point clicked
+        print(f"Coordinates: ({x}, {y})")
+
+cap = cv2.VideoCapture(0)
+
+cv2.namedWindow('frame')
+cv2.setMouseCallback('frame', getMouseCoordinates)
+
+while True:
+
+    ret, frame = cap.read()
+
+    cv2.imshow('frame', frame)
+
+    key = cv2.waitKey(1) & 0xFF
+
+    if key == ord('q'):
+        break
+
+# Release the camera and destroy the windows
+cap.release()
+cv2.destroyAllWindows()
