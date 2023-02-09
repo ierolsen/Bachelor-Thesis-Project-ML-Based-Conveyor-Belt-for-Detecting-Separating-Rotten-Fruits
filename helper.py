@@ -26,3 +26,6 @@ def stop_motor(db):
     """
     data = {"run": False}
     db.child("motor-control").child("CONTROL").update(data)
+
+def count_rottens(db):
+    pass
