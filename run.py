@@ -4,9 +4,11 @@ from PIL import Image
 import numpy as np
 
 from pyrebase import pyrebase
-from firebase_secrets import SECRETS
+from motor.firebase_secrets import SECRETS
 
 import tensorflow as tf
+
+from helper import run_motor, stop_motor
 
 # Initialize FireBase DB.
 firebase = pyrebase.initialize_app(SECRETS["FIREBASE"])
@@ -15,22 +17,6 @@ db = firebase.database()
 # Load the trained model
 model = tf.keras.models.load_model("model/model_080223")
 print("model loaded")
-
-def update_db(db):
-    """
-    FireBase DataBase updater. It will run when a rotten fruit is detected. 
-    It will cause DC-Motor run.
-    Args:
-        db: FireBase DataBase
-    """
-    data = {"open": True,
-            "close": False}
-    db.child("motor-control").child("CONTROL").update(data)    
-    time.sleep(3)    
-    data = {"open": False,
-            "close": True}
-    db.child("motor-control").child("CONTROL").update(data)
-    print("FireBase updated!")
 
 
 cap = cv2.VideoCapture(0)
@@ -55,12 +41,17 @@ while True:
         # Check if the prediction is 0 or 1
         if np.round(pred) == 1:
             cv2.putText(frame, "Rotten", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
-            update_db(db)
+            # FireBase Updater function to run the motor
+            run_motor(db)
             
             # TODO: Add Counter for rotten fruits.
             # TODO: Update the values of counted fruits on FireBase
         else:
             cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+            
+            # FireBase Updater function to stop the motor
+            stop_motor(db)
+             
             # TODO: Add Counter for fresh fruits
             # TODO: Update the values of counted fruits on FireBase
      
