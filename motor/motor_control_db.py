@@ -7,11 +7,9 @@ db.child("motor-control")
 
 data = {
     "CONTROL":{
-        "detected": 0,
         "num_rotten": 0,
         "num_fresh": 0,
-        "open": False,
-        "close": True,
+        "run": False,
     }
 }
 
