@@ -25,6 +25,7 @@ while True:
         
         ret, frame = cap.read()
         
+        # Border Lines Start #
         cv2.line(frame, (465, 2), (146, 2), (0,255, 0), 2)
         cv2.polylines(frame, [np.array([[0, 479], 
                                         [146, 2]])], True, (0,255, 0), 2)
@@ -35,6 +36,7 @@ while True:
         
         
         cv2.line(frame, (595, 126), (11, 136), (0,0, 255), 1)
+        # Border Lines End #
         
         # Converting into RGB
         frame_array = Image.fromarray(frame, 'RGB')
@@ -45,6 +47,8 @@ while True:
 
         # 4-Dimensional Tensor
         frame_array = np.expand_dims(frame_array, axis=0)
+        
+        # TODO: Add a area finder. The model should only predicts specified areas, not whole frame.
         
         # Predict the class of the fruit
         pred = model.predict(frame_array)
@@ -61,6 +65,7 @@ while True:
             # TODO: Update the values of counted fruits on FireBase
         else:
             #cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+            # TODO: Add Counter for fresh fruits.
             
             # FireBase Updater function to stop the motor
             stop_motor(db)
