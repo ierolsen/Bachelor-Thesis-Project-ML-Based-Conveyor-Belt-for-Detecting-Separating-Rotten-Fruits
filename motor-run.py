@@ -9,7 +9,7 @@ db = firebase.database()
 # Get value of run (True of False) from FiraBase
 run = db.child("motor-control").child("CONTROL").child("run").get().val()
 
-# Define the motor
+# Define the DC-motor
 motor = Motor(Ena=2, In1=3, In2=4)
 
 while True:
