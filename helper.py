@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 from pyrebase import pyrebase
 from motor.firebase_secrets import SECRETS
@@ -37,17 +38,20 @@ def getMouseCoordinates(event, x, y, flags, param):
         # Print the x,y coordinates of the point clicked
         print(f"Coordinates: ({x}, {y})")
 
+rect_points = np.array([[(145, 10), (145, 105), (472, 105), (472, 10)]])
+
 cap = cv2.VideoCapture(0)
 
 cv2.namedWindow('frame')
 cv2.setMouseCallback('frame', getMouseCoordinates)
 
+
 while True:
 
     ret, frame = cap.read()
-
+    
     cv2.imshow('frame', frame)
-
+    
     key = cv2.waitKey(1) & 0xFF
 
     if key == ord('q'):
