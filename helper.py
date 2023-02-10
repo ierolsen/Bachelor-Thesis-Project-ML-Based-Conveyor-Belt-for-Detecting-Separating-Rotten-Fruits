@@ -40,6 +40,7 @@ def getMouseCoordinates(event, x, y, flags, param):
 
 rect_points = np.array([[(145, 10), (145, 105), (472, 105), (472, 10)]])
 
+"""
 cap = cv2.VideoCapture(0)
 
 cv2.namedWindow('frame')
@@ -60,3 +61,4 @@ while True:
 # Release the camera and destroy the windows
 cap.release()
 cv2.destroyAllWindows()
+"""
