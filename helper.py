@@ -55,25 +55,6 @@ def draw_borderline(frame, pt1, pt2, pt3, pt4, color=(0, 255, 0), thickness=2):
                                     [pt4[0], pt4[1]]])], True, color, thickness)
     cv2.line(frame, pt3, pt4, color, thickness)
 
-def get_contour(frame):
-    blur = cv2.medianBlur(src=frame, ksize=3)
-    gray = cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY)
-    _, thresholded_video = cv2.threshold(src=gray, thresh=70, maxval=255, type=cv2.THRESH_BINARY_INV)
-    kernel = np.ones((1, 1), np.uint8)
-    opening = cv2.morphologyEx(thresholded_video, cv2.MORPH_OPEN, kernel=kernel, iterations=7)
-    sure_bg = cv2.dilate(opening, kernel, iterations=1)
-    dist_transform = cv2.distanceTransform(src=sure_bg, distanceType=cv2.DIST_L2, maskSize=3)
-    ret2, sure_fg = cv2.threshold(dist_transform, 0.2 * dist_transform.max(), 255, 0)
-    sure_fg = np.uint8(sure_fg)
-    unknown = cv2.subtract(sure_bg, sure_fg)
-    ret3, markers = cv2.connectedComponents(sure_fg)
-    markers = markers + 10
-    markers[unknown == 255] = 0
-    markers = cv2.watershed(frame, markers)
-    frame[markers == -1] = [0, 255, 255]
-    _, contour, hierarchy = cv2.findContours(image=markers.copy(), mode=cv2.RETR_CCOMP, method=cv2.CHAIN_APPROX_SIMPLE)
-    return contour, hierarchy
-
 def getMouseCoordinates(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         # Print the x,y coordinates of the point clicked
@@ -94,15 +75,15 @@ while True:
  
     #draw_borderline(frame, pt1=(150, 0), pt2=(466, 0), pt3=(0, 480), pt4=(640, 480))
     
-    contour, hierarchy = get_contour(frame)
+    contour, hierarchy = get_contours(frame)
     
     for cnt in contour:
 
             (x, y, w, h) = cv2.boundingRect(cnt)
             area = cv2.contourArea(cnt)
 
-            if area > 100:
-                cv2.rectangle(frame, (x, y), (x+w, y+h), (255,0,0), 1)
+            if area >= 300:
+                cv2.rectangle(frame, (x, y), (x+w, y+h), (255,255,0), 1)
     
     cv2.imshow('frame', frame)
     
