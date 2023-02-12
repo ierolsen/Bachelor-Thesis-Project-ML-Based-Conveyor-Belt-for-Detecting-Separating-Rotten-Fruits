@@ -11,7 +11,7 @@ motor = Motor(Ena=2, In1=3, In2=4)
 
 while True:
     
-    # Get value of run (True of False)
+    # Get value of run (True or False)
     run = db.child("motor-control").child("CONTROL").child("run").get().val()
     
     if run == True:
