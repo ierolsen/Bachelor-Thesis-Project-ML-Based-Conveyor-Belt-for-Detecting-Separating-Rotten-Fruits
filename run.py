@@ -25,16 +25,6 @@ while True:
         
         ret, frame = cap.read()
         
-        # Border Lines Start #
-        cv2.line(frame, (465, 2), (146, 2), (0,255, 0), 2)
-        cv2.polylines(frame, [np.array([[0, 479], 
-                                        [146, 2]])], True, (0,255, 0), 2)
-        
-        cv2.polylines(frame, [np.array([[465, 2], 
-                                        [638, 477]])], True, (0,255, 0), 2)
-        cv2.line(frame, (0, 479), (638, 479), (0, 255, 0), 2)
-        
-        
         cv2.line(frame, (595, 126), (11, 136), (0,0, 255), 1)
         # Border Lines End #
         
@@ -59,7 +49,6 @@ while True:
             
             # FireBase Updater function to run the motor
             run_motor(db)
-            # ! Motor can't get variable fast on FireBase. Fix it!
             
             # TODO: Add Counter for rotten fruits.
             # TODO: Update the values of counted fruits on FireBase
