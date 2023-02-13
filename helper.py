@@ -106,14 +106,6 @@ while True:
  
     #draw_borderline(frame, pt1=(150, 0), pt2=(466, 0), pt3=(0, 480), pt4=(640, 480))
     
-    for cnt in contour:
-
-            (x, y, w, h) = cv2.boundingRect(cnt)
-            area = cv2.contourArea(cnt)
-
-            if area >= 300:
-                cv2.rectangle(frame, (x, y), (x+w, y+h), (255,255,0), 1)
-    
     cv2.imshow('frame', frame)
     
     key = cv2.waitKey(1) & 0xFF
