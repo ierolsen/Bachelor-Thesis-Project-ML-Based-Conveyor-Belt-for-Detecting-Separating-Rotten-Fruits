@@ -30,8 +30,39 @@ def stop_motor(db):
     data = {"run": False}
     db.child("motor-control").child("CONTROL").update(data)
 
-def count_rottens(db):
-    pass
+def update_rottens(db, value):
+    """
+    Updater of Rotten Fruit Numbers.
+    Args:
+        db: FireBase DataBase
+        value (int): 0 (0 is for beginning)
+    """
+    data = {"num_rotten": value}
+    db.child("motor-control").child("CONTROL").update(data)
+
+def update_fresh(db, value):
+    """
+    Updater of Fresh Fruit Numbers.
+    Args:
+        db: FireBase DataBase
+        value (int): 0 (0 is for beginning)
+    """
+    data = {"num_fresh": value}
+    db.child("motor-control").child("CONTROL").update(data)
+
+def reset_db(db):
+    """
+    This function resets FireBase. 
+    It should work when the code stops.
+
+    Args:
+        db : FiraBase DataBase
+    """
+    data = {"num_rotten": 0,
+            "num_fresh": 0, 
+            "run": False}
+    db.child("motor-control").child("CONTROL").update(data)
+    
 
 def draw_borderline(frame, pt1, pt2, pt3, pt4, color=(0, 255, 0), thickness=2):
     """
@@ -74,8 +105,6 @@ while True:
     ret, frame = cap.read()
  
     #draw_borderline(frame, pt1=(150, 0), pt2=(466, 0), pt3=(0, 480), pt4=(640, 480))
-    
-    contour, hierarchy = get_contours(frame)
     
     for cnt in contour:
 
