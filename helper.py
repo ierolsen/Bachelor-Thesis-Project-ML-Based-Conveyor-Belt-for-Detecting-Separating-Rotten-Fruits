@@ -91,7 +91,7 @@ def getMouseCoordinates(event, x, y, flags, param):
         # Print the x,y coordinates of the point clicked
         print(f"Coordinates: ({x}, {y})")
 
-
+"""
 cap = cv2.VideoCapture(0)
 
 cv2.namedWindow('frame')
@@ -116,3 +116,4 @@ while True:
 # Release the camera and destroy the windows
 cap.release()
 cv2.destroyAllWindows()
+"""
