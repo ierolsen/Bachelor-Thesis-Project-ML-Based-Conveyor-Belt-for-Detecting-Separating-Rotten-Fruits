@@ -56,8 +56,6 @@ while True:
         rotten_value += 1
         update_rottens(db, rotten_value)
         
-        # ! TODO: check if time is ok for closing the separator by motor. if it is not, use time.sleep()
-        
         # FireBase Updater function to stop the motor
         stop_motor(db)
         
@@ -65,8 +63,8 @@ while True:
         cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
         
         # Number of Fresh Fruits updater on FiraBase
-        fresh_value += 1
-        update_fresh(db, fresh_value)
+        #fresh_value += 1
+        #update_fresh(db, fresh_value)
 
     else:
         continue
