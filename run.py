@@ -18,7 +18,11 @@ db = firebase.database()
 model = tf.keras.models.load_model("model/model_080223")
 print("model loaded")
 
+# Set the threshold values for each class
+fresh_threshold = 0.2
+rotten_threshold = 0.5
 
+# Set values for counting
 rotten_value = 0
 fresh_value = 0
 
@@ -28,7 +32,7 @@ while True:
 
     ret, frame = cap.read()
 
-    cv2.line(frame, (595, 126), (11, 136), (0,0, 255), 1)
+    #cv2.line(frame, (595, 126), (11, 136), (0,0, 255), 1)
 
     # Converting into RGB
     frame_array = Image.fromarray(frame, 'RGB')
@@ -40,13 +44,11 @@ while True:
     # 4-Dimensional Tensor
     frame_array = np.expand_dims(frame_array, axis=0)
 
-    # TODO: Add a area finder. The model should only predicts specified areas, not whole frame.
-
     # Predict the class of the fruit
     pred = model.predict(frame_array)
 
-    # Check if the prediction is 0 or 1
-    if np.round(pred) == 1:
+    # Classify the frame based on the thresholds
+    if pred >= rotten_threshold:
         cv2.putText(frame, "Rotten", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
 
         # FireBase Updater function to run the motor
@@ -59,16 +61,16 @@ while True:
         # FireBase Updater function to stop the motor
         stop_motor(db)
         
-    elif np.round(pred) == 0:
-        cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
-        
+    elif pred >= fresh_threshold:
+        cv2.putText(frame, "No Fruit", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (76, 0, 153), 2)
+
         # Number of Fresh Fruits updater on FiraBase
         #fresh_value += 1
         #update_fresh(db, fresh_value)
 
     else:
-        continue
-              
+        cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+     
     # Show the frame
     cv2.imshow("Fresh & Rotten Fruit Detection", frame)
     
