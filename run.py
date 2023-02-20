@@ -64,12 +64,12 @@ while True:
     elif pred >= fresh_threshold:
         cv2.putText(frame, "No Fruit", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (76, 0, 153), 2)
 
-        # Number of Fresh Fruits updater on FiraBase
-        #fresh_value += 1
-        #update_fresh(db, fresh_value)
-
     else:
         cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+        
+        # Number of Fresh Fruits updater on FiraBase
+        fresh_value += 1
+        update_fresh(db, fresh_value)
      
     # Show the frame
     cv2.imshow("Fresh & Rotten Fruit Detection", frame)
