@@ -28,6 +28,10 @@ fresh_value = 0
 
 cap = cv2.VideoCapture(0)
 
+# Change the sizes
+#cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+#cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+
 while True:
 
     ret, frame = cap.read()
@@ -62,14 +66,14 @@ while True:
         stop_motor(db)
         
     elif pred >= fresh_threshold:
-        cv2.putText(frame, "No Fruit", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (76, 0, 153), 2)
-
-    else:
         cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
         
         # Number of Fresh Fruits updater on FiraBase
         fresh_value += 1
         update_fresh(db, fresh_value)
+
+    else:
+        cv2.putText(frame, "No Fruit", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 255), 2)
      
     # Show the frame
     cv2.imshow("Fresh & Rotten Fruit Detection", frame)
@@ -83,3 +87,4 @@ cv2.destroyAllWindows()
 
 # Reset DataBase
 reset_db(db)
+print("DataBase Reseted!")
