@@ -10,6 +10,9 @@ firebase_secrets.py
 *.hdf5
 *.h5
 model_080223
+fonts
+font-test.py
+font.py
 
 
 # C extensions
