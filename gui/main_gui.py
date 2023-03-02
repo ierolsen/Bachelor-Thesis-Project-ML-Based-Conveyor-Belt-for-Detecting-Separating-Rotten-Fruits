@@ -335,9 +335,14 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.expLabel.setText(_translate("MainWindow", "ROTTEN FRUIT DETECTOR AND SEPARATOR"))
+        
+        # TODO: Get values of Rotten Fruits from FireBase
         self.rottenLabel.setText(_translate("MainWindow", "NUMBER OF ROTTEN FRUITS"))
         self.rottenResultLabel.setText(_translate("MainWindow", "5"))
+        
+        # TODO: Get values of Fresh Fruits from FireBase
         self.freshLabel.setText(_translate("MainWindow", "NUMBER OF FRESH FRUITS"))
         self.freshResultLabel.setText(_translate("MainWindow", "10"))
+        
         self.githubBtn.setText(_translate("MainWindow", "GitHub: ierolsen"))
         self.linkedinBtn.setText(_translate("MainWindow", "LinkedIn: in/ierolsen"))
