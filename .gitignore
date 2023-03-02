@@ -13,6 +13,7 @@ model_080223
 fonts
 font-test.py
 font.py
+*.svg
 
 
 # C extensions
