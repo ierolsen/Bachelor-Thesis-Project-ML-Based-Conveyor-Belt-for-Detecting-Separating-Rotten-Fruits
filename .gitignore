@@ -14,7 +14,8 @@ fonts
 font-test.py
 font.py
 *.svg
-
+*.ui
+*.qrc
 
 # C extensions
 *.so
