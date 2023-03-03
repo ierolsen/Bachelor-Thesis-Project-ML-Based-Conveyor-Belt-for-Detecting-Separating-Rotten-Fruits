@@ -13,6 +13,9 @@ from gui import resources
 import os
 import sys
 
+import pyrebase
+from motor.firebase_secrets import SECRETS
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -331,18 +334,37 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+#num_rotten = db.child("motor-control").child("CONTROL").child("num_rotten").get().val()
+#num_fresh = db.child("motor-control").child("CONTROL").child("num_fresh").get().val()
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.expLabel.setText(_translate("MainWindow", "ROTTEN FRUIT DETECTOR AND SEPARATOR"))
         
-        # TODO: Get values of Rotten Fruits from FireBase
-        self.rottenLabel.setText(_translate("MainWindow", "NUMBER OF ROTTEN FRUITS"))
-        self.rottenResultLabel.setText(_translate("MainWindow", "5"))
-        
-        # TODO: Get values of Fresh Fruits from FireBase
-        self.freshLabel.setText(_translate("MainWindow", "NUMBER OF FRESH FRUITS"))
-        self.freshResultLabel.setText(_translate("MainWindow", "10"))
-        
         self.githubBtn.setText(_translate("MainWindow", "GitHub: ierolsen"))
         self.linkedinBtn.setText(_translate("MainWindow", "LinkedIn: in/ierolsen"))
+        
+        # FRUIT LABELS
+        self.rottenLabel.setText(_translate("MainWindow", "NUMBER OF ROTTEN FRUITS"))
+        #self.rottenResultLabel.setText(_translate("MainWindow", "5"))
+        
+        self.freshLabel.setText(_translate("MainWindow", "NUMBER OF FRESH FRUITS"))
+        #self.freshResultLabel.setText(_translate("MainWindow", "10"))
+
+        # Set up timer to update values from Firebase.
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.updateValues)
+        self.timer.start(1) #msec
+
+    def updateValues(self):
+        # Initialize FireBase
+        firebase = pyrebase.initialize_app(SECRETS["FIREBASE"])
+        db = firebase.database()
+        # Get values of Rotten Fruits and Fresh Fruits from Firebase.
+        num_rotten = db.child("motor-control").child("CONTROL").child("num_rotten").get().val()
+        num_fresh = db.child("motor-control").child("CONTROL").child("num_fresh").get().val()
+
+        # Update the labels with the new values.
+        self.rottenResultLabel.setText(str(num_rotten))
+        self.freshResultLabel.setText(str(num_fresh))
