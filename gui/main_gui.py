@@ -16,6 +16,8 @@ import sys
 import pyrebase
 from motor.firebase_secrets import SECRETS
 
+import webbrowser
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -333,6 +335,10 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+        # Connect the clicked signal of the buttons to slots
+        self.githubBtn.clicked.connect(self.openGitHubProfile)
+        self.linkedinBtn.clicked.connect(self.openLinkedInProfile)
 
 #num_rotten = db.child("motor-control").child("CONTROL").child("num_rotten").get().val()
 #num_fresh = db.child("motor-control").child("CONTROL").child("num_fresh").get().val()
@@ -368,3 +374,11 @@ class Ui_MainWindow(object):
         # Update the labels with the new values.
         self.rottenResultLabel.setText(str(num_rotten))
         self.freshResultLabel.setText(str(num_fresh))
+        
+    def openGitHubProfile(self):
+        # Open the GitHub profile in a web browser
+        webbrowser.open_new_tab('https://github.com/ierolsen')
+
+    def openLinkedInProfile(self):
+        # Open the LinkedIn profile in a web browser
+        webbrowser.open_new_tab('https://www.linkedin.com/in/ierolsen/')
