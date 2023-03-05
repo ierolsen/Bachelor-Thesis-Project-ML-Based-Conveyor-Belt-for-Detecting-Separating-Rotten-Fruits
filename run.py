@@ -1,6 +1,6 @@
 import cv2
 import time
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
 from pyrebase import pyrebase
@@ -26,6 +26,12 @@ rotten_threshold = 0.5
 rotten_value = 0
 fresh_value = 0
 
+### CUSTOM FONT SETTINGS ###
+font_path = 'fonts/NotoSans-Black.ttf'
+font_size = 32
+font = ImageFont.truetype(font_path, font_size)
+############################
+
 cap = cv2.VideoCapture(0)
 
 # Change the sizes
@@ -35,8 +41,6 @@ cap = cv2.VideoCapture(0)
 while True:
 
     ret, frame = cap.read()
-
-    #cv2.line(frame, (595, 126), (11, 136), (0,0, 255), 1)
 
     # Converting into RGB
     frame_array = Image.fromarray(frame, 'RGB')
@@ -53,7 +57,13 @@ while True:
 
     # Classify the frame based on the thresholds
     if pred >= rotten_threshold:
-        cv2.putText(frame, "Rotten", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
+        #cv2.putText(frame, "Rotten", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
+        
+        img_pil = Image.fromarray(frame)
+        draw = ImageDraw.Draw(img_pil)
+        draw.rectangle(((8, 50), (140, 100)), fill=(0, 0, 255))
+        draw.text((10, 50), "ROTTEN", font=font, fill=(255, 255, 255))
+        frame = np.array(img_pil)
 
         # FireBase Updater function to run the motor
         run_motor(db)
@@ -66,14 +76,25 @@ while True:
         stop_motor(db)
         
     elif pred >= fresh_threshold:       
-        cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+        #cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
+        
+        img_pil = Image.fromarray(frame)
+        draw = ImageDraw.Draw(img_pil)
+        draw.rectangle(((8, 50), (110, 100)), fill="green")
+        draw.text((10, 50), "FRESH", font=font, fill=(255, 255, 255))
+        frame = np.array(img_pil)
         
         # Number of Fresh Fruits updater on FiraBase
         fresh_value += 1
         update_fresh(db, fresh_value)
 
     else:
-        cv2.putText(frame, "No Fruit", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 255), 2)
+        #cv2.putText(frame, "No Fruit", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 255), 2)
+        img_pil = Image.fromarray(frame)
+        draw = ImageDraw.Draw(img_pil)
+        draw.rectangle(((8, 50), (170, 100)), fill=(0,165,255))
+        draw.text((10, 50), "NO FRUIT", font=font, fill=(255, 255, 255))
+        frame = np.array(img_pil)
         
         
     # Show the frame
