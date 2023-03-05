@@ -1,4 +1,5 @@
 import cv2
+from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
 from pyrebase import pyrebase
