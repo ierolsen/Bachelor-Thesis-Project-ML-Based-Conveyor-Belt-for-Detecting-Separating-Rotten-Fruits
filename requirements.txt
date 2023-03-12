@@ -1,0 +1,11 @@
+Keras==2.3.1
+numpy==1.19.5
+Pillow==9.4.0
+PyQt5==5.15.9
+QT-PyQt-PySide-Custom-Widgets==0.6.4
+QtPy==2.0.1
+Pyrebase==3.0.27
+PySide2==5.15.2.1
+tensorflow==2.11.0
+tensorflow-gpu==2.1.0
+opencv-python
