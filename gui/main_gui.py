@@ -358,7 +358,7 @@ class Ui_MainWindow(object):
         # Set up timer to update values from Firebase.
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.updateValues)
-        self.timer.start(1) #msec
+        self.timer.start(.1) #msec
 
     def updateValues(self):
         # Initialize FireBase
