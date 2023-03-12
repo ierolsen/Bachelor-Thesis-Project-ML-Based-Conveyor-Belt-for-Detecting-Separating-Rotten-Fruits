@@ -340,9 +340,6 @@ class Ui_MainWindow(object):
         self.githubBtn.clicked.connect(self.openGitHubProfile)
         self.linkedinBtn.clicked.connect(self.openLinkedInProfile)
 
-#num_rotten = db.child("motor-control").child("CONTROL").child("num_rotten").get().val()
-#num_fresh = db.child("motor-control").child("CONTROL").child("num_fresh").get().val()
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
