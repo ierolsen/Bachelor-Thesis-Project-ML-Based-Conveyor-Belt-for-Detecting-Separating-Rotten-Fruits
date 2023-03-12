@@ -19,7 +19,7 @@ model = tf.keras.models.load_model("model/model_080223")
 print("model loaded")
 
 # Set the threshold values for each class
-fresh_threshold = 0.2
+fresh_threshold = 0.4
 rotten_threshold = 0.5
 
 # Set values for counting
@@ -54,6 +54,8 @@ while True:
 
     # Predict the class of the fruit
     pred = model.predict(frame_array)
+    
+    print(pred)
 
     # Classify the frame based on the thresholds
     if pred >= rotten_threshold:
