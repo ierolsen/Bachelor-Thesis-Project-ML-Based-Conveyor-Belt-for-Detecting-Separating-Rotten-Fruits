@@ -55,7 +55,7 @@ while True:
     # Predict the class of the fruit
     pred = model.predict(frame_array)
     
-    print(pred)
+    #print(pred)
 
     # Classify the frame based on the thresholds
     if pred >= rotten_threshold:
