@@ -15,9 +15,10 @@ while True:
     run = db.child("motor-control").child("CONTROL").child("run").get().val()
     
     if run == True:
-        motor.move_forward(speed=100, t=1)
-        motor.stop(1)
-        motor.move_backward(speed=100, t=1)
+        motor.move_forward(speed=100, t=.8)
+        motor.stop(1.3)
+        motor.move_forward(speed=100, t=.2)
+        motor.move_backward(speed=100, t=1.05)
         motor.stop()
         
     else:
