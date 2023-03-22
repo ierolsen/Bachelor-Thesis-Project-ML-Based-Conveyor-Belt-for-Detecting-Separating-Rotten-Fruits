@@ -19,24 +19,20 @@ model = tf.keras.models.load_model("model/model_080223")
 print("model loaded")
 
 # Set the threshold values for each class
-fresh_threshold = 0.4
-rotten_threshold = 0.5
+FRESH_THRESHOLD = 0.4
+ROTTEN_THRESHOLD = 0.5
 
 # Set values for counting
 rotten_value = 0
 fresh_value = 0
 
 ### CUSTOM FONT SETTINGS ###
-font_path = 'fonts/NotoSans-Black.ttf'
-font_size = 32
-font = ImageFont.truetype(font_path, font_size)
+FONT_PATH = 'fonts/NotoSans-Black.ttf'
+FONT_SIZE = 32
+font = ImageFont.truetype(FONT_PATH, FONT_SIZE)
 ############################
 
 cap = cv2.VideoCapture(0)
-
-# Change the sizes
-#cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-#cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 while True:
 
@@ -53,14 +49,12 @@ while True:
     frame_array = np.expand_dims(frame_array, axis=0)
 
     # Predict the class of the fruit
-    pred = model.predict(frame_array)
+    prediction = model.predict(frame_array)
     
-    #print(pred)
+    #print(prediction)
 
     # Classify the frame based on the thresholds
-    if pred >= rotten_threshold:
-        #cv2.putText(frame, "Rotten", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), 2)
-        
+    if prediction >= ROTTEN_THRESHOLD:        
         img_pil = Image.fromarray(frame)
         draw = ImageDraw.Draw(img_pil)
         draw.rectangle(((8, 50), (140, 100)), fill=(0, 0, 255))
@@ -77,9 +71,7 @@ while True:
         # FireBase Updater function to stop the motor
         stop_motor(db)
         
-    elif pred >= fresh_threshold:       
-        #cv2.putText(frame, "Fresh", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 2)
-        
+    elif prediction >= FRESH_THRESHOLD:       
         img_pil = Image.fromarray(frame)
         draw = ImageDraw.Draw(img_pil)
         draw.rectangle(((8, 50), (110, 100)), fill="green")
@@ -91,7 +83,6 @@ while True:
         update_fresh(db, fresh_value)
 
     else:
-        #cv2.putText(frame, "No Fruit", (10, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 0, 255), 2)
         img_pil = Image.fromarray(frame)
         draw = ImageDraw.Draw(img_pil)
         draw.rectangle(((8, 50), (170, 100)), fill=(0,165,255))
