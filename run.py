@@ -19,7 +19,7 @@ model = tf.keras.models.load_model("model/model_080223")
 print("model loaded")
 
 # Set the threshold values for each class
-FRESH_THRESHOLD = 0.4
+FRESH_THRESHOLD = 0.3
 ROTTEN_THRESHOLD = 0.5
 
 # Set values for counting
