@@ -11,7 +11,7 @@ This repository contains my Bachelor Thesis Project that is a conveyor belt syst
 
 The conveyor belt system has been designed using SolidWorks, the 3D CAD file can be found in this repository (note: some parts may have been changed during assembly). 
 
-![diagram2](https://user-images.githubusercontent.com/30235603/223701071-6989c414-ae76-4957-a02b-4e06693871e4.png)
+![diagram2](https://user-images.githubusercontent.com/30235603/228852685-ad6abfbf-e3f9-428e-a17f-191f734ae409.png)
 
 ![kod_sema](https://user-images.githubusercontent.com/30235603/224944748-073f1a72-653a-43da-9a02-7a37ad2fa11f.png)
 
