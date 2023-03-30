@@ -17,6 +17,8 @@ The conveyor belt system has been designed using SolidWorks, the 3D CAD file can
 
 The system uses a camera to stream real-time video of fruits passing along the conveyor belt, and the images are processed using PIL and OpenCV to predict the freshness of each fruit. 
 
+![VIDEO_](https://user-images.githubusercontent.com/30235603/228783211-44a96ea3-a7bf-4da4-bc77-9eead22ad0b0.png)
+
 The prediction model is based on the transfer learning model Xception, which has been trained using Keras. The model has achieved a validation loss of 0.00265. 
 
 ![080223_training](https://user-images.githubusercontent.com/30235603/223701159-20f56e72-95e7-40e7-ae83-e2f418dc7a78.png)
@@ -27,7 +29,7 @@ If a fruit is detected as rotten, the real-time database on Firebase is updated.
 
 Using Qt Designer, a GUI has been designed to display the numbers of fresh and rotten fruits, which continuously receives data from the Firebase database.
 
-![mainGUI_v2 1](https://user-images.githubusercontent.com/30235603/223701168-40f57614-32c1-4283-84f4-ce2138cde1e8.png)
+![GUI_](https://user-images.githubusercontent.com/30235603/228782598-69f1de6f-c0bf-4ec4-965e-3bd232ece34b.png)
 
 ---
 ## Dataset
