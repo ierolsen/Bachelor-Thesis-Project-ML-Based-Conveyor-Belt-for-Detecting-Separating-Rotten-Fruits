@@ -23,7 +23,7 @@ The prediction model is based on the transfer learning model Xception, which has
 
 ![080223_training](https://user-images.githubusercontent.com/30235603/223701159-20f56e72-95e7-40e7-ae83-e2f418dc7a78.png)
 
-If a fruit is detected as rotten, the real-time database on Firebase is updated. A Raspberry Pi continuously receives the data from Firebase, and if the value of **run** is **True**, a DC motor is activated to separate the rotten fruit from the fresh ones. The numbers of rotten and fresh fruits are updated in the database.
+If a fruit is detected as rotten, the real-time database on Firebase is updated. A Raspberry Pi continuously receives the data from Firebase, and if the value of **run** is **True**, a DC motor is activated to separate the rotten fruit. The numbers of rotten and fresh fruits are updated in the database.
 
 ![motor_gif1](https://user-images.githubusercontent.com/30235603/229095354-ad442872-c121-404d-99ce-18c689bc62ff.gif)
 ![motor_gif2](https://user-images.githubusercontent.com/30235603/229095319-bd354e5b-b572-4b22-a6d2-02bb492aa5e3.gif)
@@ -133,25 +133,3 @@ This project showcases my skills in machine learning, mechanical engineering, an
 
 
 ---
-##### References for Images
-
-- https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hepsiburada.com%2Flogitech-c270-hd-webcam-siyah-yurt-disindan-pm-HB00000ZLWW6&psig=AOvVaw3RqI_vVYIZtqtnjdY2f21f&ust=1678360442074000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCOivp4OazP0CFQAAAAAdAAAAABAD
-
-
-- https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hepsiburada.com%2Fraspberry-pi-3-model-a-plus-pm-HB00000JOQS2&psig=AOvVaw16oEavhjv1xmmSdUxghypp&ust=1678360397440000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCOj2--2ZzP0CFQAAAAAdAAAAABAD
-
-
-- https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hepsiburada.com%2Farduino-l298n-motor-surucu-shield-dc-motor-surucu-raspberry-pm-HB000004VA3M&psig=AOvVaw2stJIWVqzC-hdsLLb0AJXn&ust=1678360480255000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCIjgkpaazP0CFQAAAAAdAAAAABAD
-
-- https://www.voltreduktor.com.tr/images/series/e-serisi/e-serisi-1.jpg
-
-- https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.robotzade.com%2F12V-L-Reduktorlu-300-Rpm-DC-Motor%2CPR-1717.html&psig=AOvVaw3BLPaeFv2XdZ4-SIPNnBox&ust=1678360587833000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCMC24siazP0CFQAAAAAdAAAAABAD
-
-- https://www.cnc-marketi.com/Images/Urun/484cqh5v3af4d0.jpeg
-
-- https://www.cnc-marketi.com/Images/Urun/14092020161638.png
-
-- https://www.cnc-marketi.com/Images/Urun/14082020142829.jpeg
-
-- https://www.cnc-marketi.com/Images/Urun/020ie5400ambag.jpeg
-- https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.n11.com%2Furun%2F6203-2rs-sabit-rulman-17x40x12-528179233-30764673%3Fmagaza%3Dhasrulmanmakina&psig=AOvVaw2mOrH_MOwLdXYl8yk7oeo5&ust=1679160883162000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCKj8p_K_4_0CFQAAAAAdAAAAABAD
