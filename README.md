@@ -25,7 +25,8 @@ The prediction model is based on the transfer learning model Xception, which has
 
 If a fruit is detected as rotten, the real-time database on Firebase is updated. A Raspberry Pi continuously receives the data from Firebase, and if the value of **run** is **True**, a DC motor is activated to separate the rotten fruit from the fresh ones. The numbers of rotten and fresh fruits are updated in the database.
 
-![ayırıcı_calisma2_GIF](https://user-images.githubusercontent.com/30235603/226176967-bdaad217-e239-4430-9b2c-6deebef02e65.gif)
+![motor_gif1](https://user-images.githubusercontent.com/30235603/229095354-ad442872-c121-404d-99ce-18c689bc62ff.gif)
+![motor_gif2](https://user-images.githubusercontent.com/30235603/229095319-bd354e5b-b572-4b22-a6d2-02bb492aa5e3.gif)
 
 Using Qt Designer, a GUI has been designed to display the numbers of fresh and rotten fruits, which continuously receives data from the Firebase database.
 
