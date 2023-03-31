@@ -17,7 +17,7 @@ The conveyor belt system has been designed using SolidWorks, the 3D CAD file can
 
 The system uses a camera to stream real-time video of fruits passing along the conveyor belt, and the images are processed using PIL and OpenCV to predict the freshness of each fruit. 
 
-![video1](https://user-images.githubusercontent.com/30235603/228858254-24e710a0-a8f1-4ddf-a5ba-76419f28df7b.png)
+![VIDEO_SCREEN_JPG](https://user-images.githubusercontent.com/30235603/229136131-212ed596-150b-465e-aed1-7e59a1a9490f.jpg)
 
 The prediction model is based on the transfer learning model Xception, which has been trained using Keras. The model has achieved a validation loss of 0.00265. 
 
