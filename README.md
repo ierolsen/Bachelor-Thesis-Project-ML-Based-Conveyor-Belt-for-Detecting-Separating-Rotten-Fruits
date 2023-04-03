@@ -2,7 +2,10 @@
 
 This repository contains my Bachelor Thesis Project that is a conveyor belt system which detects and separates rotten fruits. The project combines machine learning and mechanical engineering to achieve the goal of reducing food waste in the food industry.
 
-![ayırma_GIF](https://user-images.githubusercontent.com/30235603/226176543-379bc867-427a-4c6b-b0a1-29a4d3cd4589.gif)
+## Youtube Video
+
+[![The Youtube Video](https://img.youtube.com/vi/ZrDW6tI3WWE/0.jpg)](https://www.youtube.com/watch?v=ZrDW6tI3WWE)
+
 
 ---
 
