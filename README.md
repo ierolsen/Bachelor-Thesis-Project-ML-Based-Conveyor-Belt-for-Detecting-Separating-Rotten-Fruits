@@ -7,6 +7,7 @@ This repository contains my Bachelor Thesis Project that is a conveyor belt syst
 ---
 
 ## Youtube Video
+By clicking the thumbnail below, you can watch the video on Youtube.
 
 
 [![The Youtube Video](https://img.youtube.com/vi/ZrDW6tI3WWE/0.jpg)](https://www.youtube.com/watch?v=ZrDW6tI3WWE)
